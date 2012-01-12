@@ -1,0 +1,43 @@
+
+
+### What does the code?
+Lets you draw moving up|down|left|righ pressing W|S|A|D
+Each user that connects to the app via browser will get a new color to draw
+and he/she could see what other users are drawing from that moment.
+
+
+### To run the code
+
+#Install necessary packages
+sudo apt-get install build-essential libssl-dev 
+
+#Install node [http://nodejs.org/]
+wget http://nodejs.org/dist/v0.6.6/node-v0.6.6.tar.gz
+tar xvzf node-v0.6.6.tar.gz
+cd node-v0.6.6/
+./configure
+make
+sudo make install
+
+#Install curl
+sudo apt-get install curl
+
+#Install npm
+sudo curl http://npmjs.org/install.sh | sudo sh
+
+#Install socket.i[http://socket.io/#how-to-use]
+ (Do it after cloning the project, in the root dir of proy1)
+npm -d install socket.io
+
+#Change the ip in index.html
+
+#Run the app
+node app.js
+
+#Go to the browser, type your ip address, port 8080
+
+
+### Sources
+I got some code from these sources
+http://paulirish.com/2009/random-hex-color-code-snippets/
+http://html5.litten.com/moving-shapes-on-the-html5-canvas-with-the-keyboard/

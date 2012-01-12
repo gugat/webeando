@@ -1,0 +1,116 @@
+<html>
+<title>GuGapp1</title>
+
+<head>
+<style>
+#canvas{
+	border: 1px solid black;
+}
+#canvas-container{
+	margin-right: auto;
+	margin-left: auto;	
+	width:700px;
+	border: 1px dashed black;
+}
+</style>
+<script src="http://192.168.0.104:8080/socket.io/socket.io.js"></script>
+
+<script>
+
+	//Canvas
+	var canvas;
+	var ctx;
+	
+	//Size of moving steps
+	var x_step = 5; 
+	var y_step = 5;
+	
+	//Current position of gamer. Set to zero just to declare
+	var x_now = 0;
+	var y_now = 0;
+	
+	var WIDTH = 700; //Change canvas width according to this
+	var HEIGHT = 700; //Change canvas height according to this
+	var radius = 10;//Radius of the circle
+	var my_color;//Color of the gamer
+	var socket = io.connect('http://192.168.0.104:8080');//Server
+
+
+  //When you enter.
+   socket.on('simple message',function(msg, color, x, y) {
+	my_color = color;
+	init();
+	x_now=x;
+	y_now=y;
+	circle(x_now, y_now, radius, color);
+   });
+  
+  //When other gamer enters.
+   socket.on('new gamer', function(msg, coord, color) {	
+	circle(coord.x, coord.y, radius, color);
+   });
+
+ 
+  //When you change your position.
+  socket.on('position update', function(coord, color) {
+	circle(coord.x, coord.y, radius, color);
+  });
+  
+
+  window.addEventListener('keydown',doKeyDown,true);
+  
+  
+function doKeyDown(evt){
+	var code = evt.keyCode;
+	switch (code) {
+		case 87://up is 38
+			if (y_now - y_step > 0){y_now -= y_step;}
+		break;
+		case 83://down is 40: 
+			if (y_now + y_step < HEIGHT){y_now += y_step;}
+		break;
+		case 65: //37 is left
+			if (x_now - x_step > 0){x_now -= x_step;}
+		break;		
+		case 68: //39 is right
+			if (x_now + x_step < WIDTH){x_now += x_step;}
+		break;
+	}
+	circle(x_now, y_now, 10, my_color);
+	socket.emit('change position',  {x:x_now, y:y_now});
+}
+
+function draw() {
+	ctx.fillStyle = "white";
+	ctx.strokeStyle = "black";
+	ctx.fillStyle = "purple";
+	circle(x, y, 10);
+}
+  
+//Draw a circle
+function circle(x,y,r,color) {
+	ctx.beginPath();
+	ctx.arc(x, y, r, 0, Math.PI*2, true);
+	ctx.fillStyle = color
+	ctx.fill();
+}
+    
+function init() {
+	canvas = document.getElementById("canvas");
+	ctx = canvas.getContext("2d");
+}
+
+
+</script>
+</head>
+<body>
+
+<div id="canvas-container">
+<canvas id="canvas" width="700px" height="700px" >
+This text is displayed if your browser does not support HTML5 Canvas.
+</canvas>
+</div>
+
+</body>
+
+</html>
