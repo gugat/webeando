@@ -1,0 +1,54 @@
+Install Cucumber for rails
+
+
+-----------------------------------------------------------
+
+0. Install rvm, rails, ruby and create a project
+-----------------------------------------------------------
+
+	https://rvm.io/rvm/install/
+
+	sudo apt-get install gcc g++ make build-essentials -y
+	rails new blog	
+		
+-----------------------------------------------------------
+
+1. Install cucumber-rails and rspec-rails
+-----------------------------------------------------------
+
+	https://github.com/cucumber/cucumber-rails  => Installation
+	https://github.com/rspec/rspec-rails => Install
+
+	sudo apt-get install libxml2-dev libxslt1-dev -y
+
+	In Gemfile:
+		group :test do
+		  gem 'cucumber-rails', :require => false
+		  # database_cleaner is not required, but highly recommended
+		  gem 'database_cleaner'
+		  gem 'rspec-rails'
+		end
+
+	bundle install
+
+
+-----------------------------------------------------------
+
+2. Hello World with cucumber
+-----------------------------------------------------------
+	
+	http://cuke4ninja.com/sec_ruby_hello_world.html
+
+	Follow the complete example in the page
+
+
+Cucumber jargon 
+http://cuke4ninja.com/sec_cucumber_jargon.html
+
+Railcast
+http://railscasts.com/episodes/155-beginning-with-cucumber
+
+http://cukes.info/
+
+
+http://teachmetocode.com/screencasts/introduction-to-outside-in-development-with-cucumber/
